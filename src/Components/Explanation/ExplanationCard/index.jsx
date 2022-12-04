@@ -41,7 +41,7 @@ export default function ExplanationCard() {
         />
         <Text style={styles.description}>
           <Text style={styles.body}> Corpo: </Text>
-          Hábitos para te deixar mais saudável e forte
+          Hábitos para te deixar mais {"\n"}saudável e forte
         </Text>
       </View>
 
