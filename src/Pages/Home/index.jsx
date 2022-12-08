@@ -29,7 +29,7 @@ export default function Home(){
 
           <StatusBar />
 
-          
+          {/* Botões de habitos */}
           {mindHabit ? (
             <EditHabit
               habit={mindHabit?.habitName}
