@@ -1,13 +1,15 @@
 import React from "react";
-import { StyleSheet, Switch, Text, View } from "react-native";
+import { StyleSheet, Switch } from "react-native";
+import { View, Text } from "react-native";
 
-export default function Notification(
+export default function Notification({
   notificationToggle,
-  setNotificationToggle
-) {
+  setNotificationToggle,
+}) {
   const toggleSwitch = () => {
     setNotificationToggle((previousState) => !previousState);
   };
+
   return (
     <>
       <View style={styles.container}>
