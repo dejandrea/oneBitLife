@@ -16,8 +16,9 @@ export default function HomePage() {
           headerShown: false,
         }}
       >
-        <Stack.Screen name="AppExplanation" component={AppExplanation} />
         <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="AppExplanation" component={AppExplanation} />
+        
         <Stack.Screen name="HabitPage" component={HabitPage}/>
       </Stack.Navigator>
     </NavigationContainer>
