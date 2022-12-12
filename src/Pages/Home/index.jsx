@@ -1,31 +1,44 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import LifeStatus from '../../Components/Common/LifeStatus'
+import LifeStatus from "../../Components/Common/LifeStatus";
 import StatusBar from "../../Components/Home/StatusBar";
 import CreateHabit from "../../Components/Home/CreateHabit";
 import EditHabit from "../../Components/Home/EditHabit";
+import ChangeNavigationService from "../../Services"
 
+export default function Home({route}) {
+  const navigation = useNavigation();
+  const [mindHabit, setMindHabit] = useState();
+  const [moneyHabit, setMoneyHabit] = useState();
+  const [bodyHabit, setBodyHabit] = useState();
+  const [funHabit, setFunHabit] = useState();
 
-export default function Home(){
-  const navigation = useNavigation()
-  const [mindHabit, setMindHabit] = useState()
-  const [moneyHabit, setMoneyHabit] = useState()
-  const [bodyHabit, setBodyHabit] = useState()
-  const [funHabit, setFunHabit] = useState()
+  const [robotDaysLife, setRobotDaysLife] = useState();
+  const today = new Date();
 
-  function handleNavExplanation(){
-    navigation.navigate("AppExplanation")
+  function handleNavExplanation() {
+    navigation.navigate("AppExplanation");
   }
 
-  return(
+  useEffect(() => {
+    ChangeNavigationService.checkShowHome(1)
+      .then((showHome) => {
+        const formDate = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
+        const checkDays =
+          new Date(formDate) - new Date(showHome.appStartData) + 1;
+
+        setRobotDaysLife(checkDays.toString().padStart(2, "0"));
+      })
+      .catch((err) => console.log(err));
+  }, [route.params]);
+
+  return (
     <View style={styles.container}>
       <ScrollView>
-        <View style={{alignItems:"center"}}>
-          <Text style={styles.dailyChecks}>
-          ❤️ 20 dias - ✔️ 80 checks
-          </Text>
-          <LifeStatus/>
+        <View style={{ alignItems: "center" }}>
+          <Text style={styles.dailyChecks}>❤️ {robotDaysLife} {robotDaysLife === "01" ? "dia" : "dias"} - ✔️ 80 checks</Text>
+          <LifeStatus />
 
           <StatusBar />
 
@@ -74,38 +87,37 @@ export default function Home(){
             <CreateHabit habitArea="Humor" borderColor="#FE7F23" />
           )}
         </View>
-        <Text style={styles.explanationText} 
-          onPress={()=>{
-            handleNavExplanation()
+        <Text
+          style={styles.explanationText}
+          onPress={() => {
+            handleNavExplanation();
           }}
         >
           Ver Explicação novamente
         </Text>
       </ScrollView>
     </View>
-  )
-  
+  );
 }
 
 const styles = StyleSheet.create({
-  container:{
-    flex:1,
-    backgroundColor:"rgba(21, 21, 21, 0.98)"
+  container: {
+    flex: 1,
+    backgroundColor: "rgba(21, 21, 21, 0.98)",
   },
-  dailyChecks:{
-    color:"#fff",
-    fontWeight:"bold",
-    textAlign:"center",
-    fontSize:18,
-    marginTop:40
+  dailyChecks: {
+    color: "#fff",
+    fontWeight: "bold",
+    textAlign: "center",
+    fontSize: 18,
+    marginTop: 40,
   },
-  explanationText:{
-    color:"#fff",
-    fontSize:16,
-    fontWeight:"bold",
-    textAlign:"center",
-    paddingBottom:25,
-    paddingTop:15
-
-  }
-})
+  explanationText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
+    textAlign: "center",
+    paddingBottom: 25,
+    paddingTop: 15,
+  },
+});
