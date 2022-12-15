@@ -5,7 +5,7 @@ import LifeStatus from "../../Components/Common/LifeStatus";
 import StatusBar from "../../Components/Home/StatusBar";
 import CreateHabit from "../../Components/Home/CreateHabit";
 import EditHabit from "../../Components/Home/EditHabit";
-import ChangeNavigationService from "../../Services"
+import ChangeNavigationService from "../../Services/ChangeNavigationService"
 
 export default function Home({route}) {
   const navigation = useNavigation();
@@ -16,6 +16,7 @@ export default function Home({route}) {
 
   const [robotDaysLife, setRobotDaysLife] = useState();
   const today = new Date();
+
 
   function handleNavExplanation() {
     navigation.navigate("AppExplanation");
@@ -37,7 +38,7 @@ export default function Home({route}) {
     <View style={styles.container}>
       <ScrollView>
         <View style={{ alignItems: "center" }}>
-          <Text style={styles.dailyChecks}>❤️ {robotDaysLife} {robotDaysLife === "01" ? "dia" : "dias"} - ✔️ 80 checks</Text>
+          <Text style={styles.dailyChecks}>❤️ {robotDaysLife} {robotDaysLife === "01" ? "dia" : "dias"}  - ✔️ 80 checks</Text>
           <LifeStatus />
 
           <StatusBar />
