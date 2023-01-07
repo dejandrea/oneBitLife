@@ -9,6 +9,7 @@ import {
   View,
 } from "react-native";
 import HabitsService from "../../../Services/HabitsService";
+import NotificationService from "../../../Services/NotificationService";
 
 export default function UpdateExcludeButtons({
   habitInput,
@@ -22,6 +23,7 @@ export default function UpdateExcludeButtons({
     HabitsService.deleteByName(habitArea)
       .then(() => {
         Alert.alert("Exclusão feita com sucesso");
+        NotificationService.deleteNotification(habitInput);
         navigation.navigate("Home", {
           excludeArea: `${habitArea}`,
         });

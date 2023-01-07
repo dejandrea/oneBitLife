@@ -77,7 +77,7 @@ export default function HabitPage({ route }) {
         timeNotification
         );
       }
-      
+
       HabitsService.createHabit({
         habitArea: habit?.habitArea,
         habitName: habitInput,
@@ -113,9 +113,17 @@ export default function HabitPage({ route }) {
         habitNotificationId: notificationToggle ? habitInput : null,
       }).then(() => {
         Alert.alert("Sucesso na atualização do hábito");
-        if (!notificationToggle) {
-        } else {
-        }
+         if (!notificationToggle) {
+        NotificationService.deleteNotification(habit?.habitName);
+      } else {
+        NotificationService.deleteNotification(habit?.habitName);
+        NotificationService.createNotification(
+          habitInput,
+          frequencyInput,
+          dayNotification,
+          timeNotification
+        );
+      }
         navigation.navigate("Home", {
           updatedHabit: `Updated in ${habit?.habitArea}`,
         });
