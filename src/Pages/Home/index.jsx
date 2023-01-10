@@ -73,7 +73,12 @@ export default function Home({route}) {
           <Text style={styles.dailyChecks}>❤️ {robotDaysLife} {robotDaysLife === "01" ? "dia" : "dias"}  - ✔️ 80 checks</Text>
           <LifeStatus />
 
-          <StatusBar />
+          <StatusBar 
+            mindHabit={mindHabit?.progressBar}
+            moneyHabit={moneyHabit?.progressBar}
+            bodyHabit={bodyHabit?.progressBar}
+            funHabit={funHabit?.progressBar}
+          />
 
           {/* Botões de habitos */}
            {mindHabit ? (
