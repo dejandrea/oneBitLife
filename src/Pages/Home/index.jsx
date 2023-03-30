@@ -5,11 +5,11 @@ import LifeStatus from "../../Components/Common/LifeStatus";
 import StatusBar from "../../Components/Home/StatusBar";
 import CreateHabit from "../../Components/Home/CreateHabit";
 import EditHabit from "../../Components/Home/EditHabit";
-import ChangeNavigationService from "../../Services/ChangeNavigationService"
+import ChangeNavigationService from "../../Services/ChangeNavigationService";
 import HabitsService from "../../Services/HabitsService";
 import CheckService from "../../Services/CheckService";
 
-export default function Home({route}) {
+export default function Home({ route }) {
   const navigation = useNavigation();
   const [mindHabit, setMindHabit] = useState();
   const [moneyHabit, setMoneyHabit] = useState();
@@ -19,16 +19,13 @@ export default function Home({route}) {
   const [robotDaysLife, setRobotDaysLife] = useState();
   const today = new Date();
 
-
   function handleNavExplanation() {
     navigation.navigate("AppExplanation");
   }
 
   const excludeArea = route.params?.excludeArea;
 
-  
   useEffect(() => {
-
     HabitsService.findByArea("Mente").then((mind) => {
       setMindHabit(mind[0]);
     });
@@ -56,7 +53,7 @@ export default function Home({route}) {
         setFunHabit(null);
       }
     }
-    
+
     ChangeNavigationService.checkShowHome(1)
       .then((showHome) => {
         const formDate = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
@@ -76,10 +73,18 @@ export default function Home({route}) {
     <View style={styles.container}>
       <ScrollView>
         <View style={{ alignItems: "center" }}>
-          <Text style={styles.dailyChecks}>❤️ {robotDaysLife} {robotDaysLife === "01" ? "dia" : "dias"}  - ✔️ 80 checks</Text>
-          <LifeStatus />
+          <Text style={styles.dailyChecks}>
+            ❤️ {robotDaysLife} {robotDaysLife === "01" ? "dia" : "dias"} - ✔️ 80
+            checks
+          </Text>
+          <LifeStatus
+            mindHabit={mindHabit}
+            moneyHabit={moneyHabit}
+            bodyHabit={bodyHabit}
+            funHabit={funHabit}
+          />
 
-          <StatusBar 
+          <StatusBar
             mindHabit={mindHabit?.progressBar}
             moneyHabit={moneyHabit?.progressBar}
             bodyHabit={bodyHabit?.progressBar}
@@ -87,26 +92,26 @@ export default function Home({route}) {
           />
 
           {/* Botões de habitos */}
-           {mindHabit ? (
-          <EditHabit habit={mindHabit} checkColor="#90B7F3" />
-        ) : (
-          <CreateHabit habitArea="Mente" borderColor="#90B7F3" />
-        )}
-        {moneyHabit ? (
-          <EditHabit habit={moneyHabit} checkColor="#85BB65" />
-        ) : (
-          <CreateHabit habitArea="Financeiro" borderColor="#85BB65" />
-        )}
-        {bodyHabit ? (
-          <EditHabit habit={bodyHabit} checkColor="#FF0044" />
-        ) : (
-          <CreateHabit habitArea="Corpo" borderColor="#FF0044" />
-        )}
-        {funHabit ? (
-          <EditHabit habit={funHabit} checkColor="#FE7F23" />
+          {mindHabit ? (
+            <EditHabit habit={mindHabit} checkColor="#90B7F3" />
           ) : (
-          <CreateHabit habitArea="Humor" borderColor="#FE7F23" />
-        )}
+            <CreateHabit habitArea="Mente" borderColor="#90B7F3" />
+          )}
+          {moneyHabit ? (
+            <EditHabit habit={moneyHabit} checkColor="#85BB65" />
+          ) : (
+            <CreateHabit habitArea="Financeiro" borderColor="#85BB65" />
+          )}
+          {bodyHabit ? (
+            <EditHabit habit={bodyHabit} checkColor="#FF0044" />
+          ) : (
+            <CreateHabit habitArea="Corpo" borderColor="#FF0044" />
+          )}
+          {funHabit ? (
+            <EditHabit habit={funHabit} checkColor="#FE7F23" />
+          ) : (
+            <CreateHabit habitArea="Humor" borderColor="#FE7F23" />
+          )}
         </View>
         <Text
           style={styles.explanationText}
