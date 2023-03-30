@@ -5,6 +5,8 @@
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "orientation":"portrait",
+    "icon":"./src/assets/icons/logo1.png"
   }
 }
